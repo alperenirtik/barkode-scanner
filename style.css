@@ -1,0 +1,778 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+#video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    background-color: #000;
+    border-radius: 8px;
+    pointer-events: auto !important;
+}
+
+input {
+    margin-top: 30px;
+    padding: 15px;
+    width: 100%;
+    max-width: 480px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+    margin-top: 30px;
+    line-height: 1.5;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Butonları yan yana yerleştir */
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* Kamera İzni Ver Butonu CSS */
+
+#allowCameraButton {
+    background-color: #17a2b8;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#allowCameraButton:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+#allowCameraButton:active {
+    background-color: #117a8b;
+}
+
+
+/* Tarama Yap Butonu CSS */
+
+#scanButton {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#scanButton:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#scanButton:active {
+    background-color: #388e3c;
+}
+
+
+/* Modal Styles */
+
+.modal {
+    position: fixed;
+    z-index: 1050 !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-dialog {
+    pointer-events: auto !important;
+    margin: 1.75rem auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+    border-radius: 10px;
+    pointer-events: auto !important;
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 1rem;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.video-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+#video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    pointer-events: auto !important;
+}
+
+
+/* Tarama animasyonu */
+
+.scan-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+.scan-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: rgba(82, 196, 26, 0.8);
+    animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: 100%;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+
+/* Input alanı */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    font-size: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.input-group button {
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #4e54c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.input-group button:hover {
+    background-color: #4e54c8;
+    color: #fff;
+}
+
+
+/* Mobil görünüm */
+
+@media (max-width: 576px) {
+    .input-group {
+        flex-direction: row;
+    }
+    .form-control {
+        font-size: 14px;
+    }
+    .modal {
+        padding-top: 0;
+    }
+    .modal-dialog {
+        margin: 0;
+        padding: 10px;
+        min-height: 100%;
+    }
+    .modal-content {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        border-radius: 15px;
+    }
+    .modal-body {
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .video-container {
+        margin: -10px -10px 10px -10px;
+    }
+    .modal-body {
+        padding: 15px;
+    }
+    .barcode-container {
+        padding: 10px;
+    }
+}
+
+
+/* Ana sayfa container */
+
+.container-fluid {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+
+/* Card styling */
+
+.card {
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+    transform: none;
+}
+
+.card-title {
+    color: #2d3436;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card-title i {
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* Buton container */
+
+.d-grid.gap-3 {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/* Buton stilleri */
+
+.btn {
+    position: relative;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+
+/* Kamera İzni Butonu */
+
+.btn-info {
+    background: linear-gradient(45deg, #0093E9, #80D0C7);
+    box-shadow: 0 4px 15px rgba(0, 147, 233, 0.2);
+}
+
+.btn-info:hover {
+    background: linear-gradient(45deg, #0084d2, #6ab8b0);
+    box-shadow: 0 4px 15px rgba(0, 147, 233, 0.2);
+}
+
+
+/* Tarama Butonu */
+
+.btn-success {
+    background: linear-gradient(45deg, #00b09b, #96c93d);
+    box-shadow: 0 4px 15px rgba(0, 176, 155, 0.2);
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #009584, #84b234);
+    box-shadow: 0 4px 15px rgba(0, 176, 155, 0.2);
+}
+
+
+/* Buton ikonları */
+
+.btn i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i {
+    transform: scale(1.1);
+}
+
+
+/* Alert kutusu */
+
+.alert-light {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.alert-light .fw-medium {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.alert-light i {
+    color: #4e54c8;
+    font-size: 1.2rem;
+}
+
+
+/* Responsive düzenlemeler */
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 2rem !important;
+    }
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+    .alert-light {
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+}
+
+
+/* Animasyon keyframes */
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* Nasıl Çalışır bölümü */
+
+.how-it-works {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.section-title {
+    text-align: center;
+    color: #2d3436;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+}
+
+.section-title i {
+    color: #4e54c8;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.step-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(78, 84, 200, 0.2);
+}
+
+.step h6 {
+    color: #2d3436;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.step p {
+    color: #636e72;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+/* Responsive düzenlemeler */
+
+@media (max-width: 768px) {
+    .how-it-works {
+        padding: 1.5rem;
+    }
+    .steps-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .step {
+        padding: 0.5rem;
+    }
+}
+
+
+/* Toast Styling */
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    border-radius: 10px;
+    font-size: 0.95rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    background: rgba(40, 167, 69, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: none !important;
+}
+
+.toast-body {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast-body i {
+    font-size: 1.2rem;
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+@media (max-width: 576px) {
+    .toast-container {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 10px;
+    }
+    .toast {
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 15px;
+    }
+}
+
+.barcode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+}
+
+.barcode-container input {
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    font-size: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #2d3436;
+}
+
+.barcode-container button {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #4e54c8;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.barcode-container button:hover {
+    background-color: #4e54c8;
+    color: #fff;
+    border-color: #4e54c8;
+}
+
+.barcode-container button i {
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body .barcode-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.modal-body .barcode-container input {
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    font-size: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #2d3436;
+    margin-bottom: 10px;
+}
+
+.modal-body .barcode-container button {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #4e54c8;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-body .barcode-container button:hover {
+    background-color: #4e54c8;
+    color: #fff;
+    border-color: #4e54c8;
+}
+
+.modal-body .barcode-container button i {
+    font-size: 18px;
+}
+
+.barcode-container input::placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+.footer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.footer-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #FF6934, #FF8661);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 105, 52, 0.2);
+}
+
+.footer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 105, 52, 0.3);
+    color: white;
+}
+
+.footer-btn i {
+    font-size: 18px;
+}
+
+@media (max-width: 576px) {
+    .footer-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .footer-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        width: 100%;
+        justify-content: center;
+    }
+    .footer-btn i {
+        font-size: 16px;
+    }
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #24292e;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.github-btn:hover {
+    background: #2f363d;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.github-btn i {
+    font-size: 18px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+.demo-note p {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
