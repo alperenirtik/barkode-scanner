@@ -2,10 +2,7 @@
 
 Modern ve kullanıcı dostu bir barkod tarama web uygulaması. Mobil cihazınızın kamerasını kullanarak hızlı ve kolay bir şekilde barkod tarama işlemi yapabilirsiniz.
 
-![Ekran Görüntüsü 1](https://github.com/alperenirtik/barkode-scanner/blob/main/1.png)
 ![Ekran Görüntüsü 2](https://github.com/alperenirtik/barkode-scanner/blob/main/2.png)
-![Ekran Görüntüsü 3](https://github.com/alperenirtik/barkode-scanner/blob/main/3.png)
-
 
 ## 🚀 Özellikler
 
