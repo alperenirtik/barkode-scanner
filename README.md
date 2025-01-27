@@ -1,4 +1,4 @@
-# 🔍 Demo: https://proje.alperenirtik.com/proje/barkod-scanner/
+# 🔍 Demo: https://proje.alperenirtik.com/proje/barcode-scanner/
 
 
 
