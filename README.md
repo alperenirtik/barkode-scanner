@@ -23,7 +23,7 @@ Modern ve kullanıcı dostu bir barkod tarama web uygulaması. Mobil cihazınız
 
 1. Repoyu klonlayın:
 ```bash
-git clone https://github.com/alperenirtik/barcode-scanner.git
+git clone https://github.com/alperenirtik/barkode-scanner.git
 ```
 
 2. Proje dizinine gidin:
@@ -64,13 +64,6 @@ Uygulama, tüm modern mobil cihazlarda sorunsuz çalışacak şekilde tasarlanm�
 - Herhangi bir veri depolama yok
 - Güvenli clipboard API kullanımı
 
-## 🤝 Katkıda Bulunma
-
-1. Bu repoyu fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'feat: Add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request oluşturun
 
 ## 📄 Lisans
 
